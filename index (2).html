@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a0a00">
+<meta name="description" content="Tita La Remedios — Lo haces mal y ni lo sabes">
+<title>Tita La Remedios</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fff8f2;
+  --surface: #ffffff;
+  --surface2: #fef0e6;
+  --border: rgba(200,52,26,0.12);
+  --border2: rgba(200,52,26,0.25);
+  --text: #1a0a00;
+  --text2: #4a2010;
+  --text3: #7a4030;
+  --red: #c8341a;
+  --red2: #e8501a;
+  --amber: #8a3020;
+  --yellow: #c8341a;
+  --green: #2a8a50;
+  --radius: 18px;
+  --radius-sm: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 90px;
+  background-image: radial-gradient(ellipse at top, #fde8d8 0%, #fff8f2 60%);
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  padding: 24px 20px 8px;
+  position: relative;
+}
+.tita-avatar {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  border: 3px solid var(--red);
+  box-shadow: 0 0 20px rgba(232,35,26,0.4);
+  object-fit: cover;
+  margin-bottom: 10px;
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 52px;
+  margin: 0 auto 10px;
+}
+.tita-name {
+  font-family: 'Fredoka One', cursive;
+  font-size: 28px;
+  color: var(--red);
+  text-shadow: 2px 2px 0 #000;
+  letter-spacing: 0.5px;
+}
+.tita-bio {
+  font-size: 13px;
+  color: #4a2010;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  gap: 0;
+  margin: 16px 20px;
+  background: #ffffff;
+  border-radius: 50px;
+  padding: 4px;
+  border: 1px solid var(--border);
+}
+.nav-btn {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: 50px;
+  border: none;
+  background: transparent;
+  color: var(--text2);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.nav-btn.active {
+  background: var(--red);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(232,35,26,0.4);
+}
+
+/* SECTIONS */
+.section { display: none; padding: 0 16px; }
+.section.active { display: block; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+/* CARDS */
+.card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.card-red {
+  background: linear-gradient(135deg, #fff0e8, #fde0d0);
+  border: 1px solid rgba(232,35,26,0.3);
+}
+
+/* CONSEJO DEL DIA */
+.consejo-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--red);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 12px;
+}
+.consejo-titulo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 26px;
+  color: var(--red);
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.consejo-sub {
+  font-size: 13px;
+  color: var(--text2);
+  font-style: italic;
+  margin-bottom: 12px;
+}
+.consejo-texto {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.7;
+  padding: 14px;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--red);
+  font-weight: 600;
+}
+.consejo-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 12px;
+}
+.consejo-btn {
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.consejo-btn:hover { border-color: var(--red); color: var(--red); }
+.consejo-count { font-size: 12px; color: var(--text3); }
+
+/* CHAT */
+.chat-msgs {
+  height: 320px;
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 10px;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.msg {
+  padding: 12px 14px;
+  border-radius: 18px;
+  max-width: 88%;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 600;
+}
+.msg.user {
+  background: var(--red);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.msg.tita {
+  background: var(--surface2);
+  color: var(--text);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+  border: 1px solid var(--border2);
+}
+.msg.tita .tita-msg-name {
+  font-size: 10px;
+  color: var(--red2);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.msg.loading { color: var(--text2); font-style: italic; }
+.chat-input-row {
+  display: flex; gap: 8px; margin-top: 12px;
+}
+.chat-input-row input {
+  flex: 1; padding: 12px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 50px;
+  color: var(--text);
+  font-size: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  outline: none;
+}
+.chat-input-row input:focus { border-color: var(--red); }
+.chat-input-row input::placeholder { color: var(--text3); }
+.chat-send {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: var(--red);
+  border: none; cursor: pointer;
+  font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(232,35,26,0.4);
+  transition: all 0.2s;
+}
+.chat-send:hover { transform: scale(1.05); }
+.quick-btns {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;
+}
+.quick-btn {
+  padding: 7px 12px;
+  border-radius: 50px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.quick-btn:hover { border-color: var(--red); color: var(--red2); }
+
+/* TEST */
+.test-intro {
+  text-align: center;
+  padding: 8px 0 16px;
+}
+.test-intro .emoji { font-size: 48px; margin-bottom: 8px; }
+.test-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 22px;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+.test-sub { font-size: 13px; color: var(--text2); font-weight: 600; }
+
+.pregunta-card {
+  background: #ffffff;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 12px;
+}
+.pregunta-num {
+  font-size: 11px; color: var(--red2); font-weight: 800;
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+}
+.pregunta-txt {
+  font-size: 15px; font-weight: 700; color: #1a0a00;
+  margin-bottom: 14px; line-height: 1.4;
+}
+.opciones { display: flex; flex-direction: column; gap: 8px; }
+.opcion {
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(200,52,26,0.15);
+  background: #fef5f0;
+  color: #4a2010;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+.opcion:hover { border-color: var(--amber); color: var(--text); }
+.opcion.selected { border-color: var(--red); background: rgba(232,35,26,0.15); color: var(--text); }
+.opcion.correct { border-color: var(--green); background: rgba(78,203,106,0.15); color: var(--green); }
+.opcion.wrong { border-color: var(--red); background: rgba(232,35,26,0.15); color: var(--red2); }
+
+.btn-test {
+  width: 100%;
+  padding: 14px;
+  border-radius: 50px;
+  border: none;
+  background: var(--red);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  margin-top: 8px;
+  box-shadow: 0 4px 15px rgba(232,35,26,0.4);
+  transition: all 0.2s;
+}
+.btn-test:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,35,26,0.5); }
+.btn-test:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.resultado-card {
+  background: linear-gradient(135deg, #fde8d8, #fff0e8);
+  border: 2px solid rgba(200,52,26,0.3);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+  margin-top: 12px;
+}
+.resultado-emoji { font-size: 52px; margin-bottom: 10px; }
+.resultado-titulo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 24px;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+.resultado-texto {
+  font-size: 14px; color: #4a2010;
+  line-height: 1.6; font-weight: 600;
+}
+.resultado-score {
+  font-family: 'Fredoka One', cursive;
+  font-size: 42px;
+  color: var(--red);
+  margin: 10px 0;
+}
+
+/* PROGRESS BAR */
+.test-progress {
+  display: flex; gap: 4px; margin-bottom: 16px;
+}
+.test-dot {
+  flex: 1; height: 4px; border-radius: 2px;
+  background: var(--surface2);
+  transition: background 0.3s;
+}
+.test-dot.done { background: var(--red); }
+.test-dot.current { background: var(--amber); }
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%; max-width: 480px;
+  background: rgba(255,248,242,0.97);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(200,52,26,0.2);
+  display: flex;
+  padding: 8px 0 14px;
+  z-index: 100;
+}
+.bottom-btn {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  background: none; border: none; cursor: pointer;
+  padding: 6px 0;
+}
+.bottom-btn .icon { font-size: 22px; }
+.bottom-btn .label { font-size: 10px; color: #a06050; font-family: 'Nunito', sans-serif; font-weight: 700; }
+.bottom-btn.active .label { color: var(--red2); }
+
+/* DIVIDER */
+.divider {
+  height: 1px; background: var(--border);
+  margin: 12px 0;
+}
+
+.pamplina-tag {
+  display: inline-block;
+  background: var(--red);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 50px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+</style>
+</head>
+<body>
+
+<div id="login-screen" style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:30px 20px; background:linear-gradient(180deg, #fff8f2 0%, #fef0e6 50%, #fde8d8 100%);">
+  
+  <!-- Imagen Tita -->
+  <div style="position:relative; margin-bottom:0;">
+    <img src="https://raw.githubusercontent.com/titalaremedios/titalaremedios.github.io/main/tita.jpg.png" 
+      style="width:260px; height:320px; border-radius:24px; object-fit:cover; object-position:center center; border:3px solid #c8341a; box-shadow:0 8px 30px rgba(200,52,26,0.3), 0 0 60px rgba(200,52,26,0.1);">
+    <div style="position:absolute; bottom:8px; right:8px; background:#c8341a; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:16px; box-shadow:0 2px 8px rgba(0,0,0,0.5);">⚠️</div>
+  </div>
+
+  <!-- Nombre -->
+  <div style="font-family:'Fredoka One',cursive; font-size:34px; color:#1a0a00; text-shadow:2px 2px 0 rgba(0,0,0,0.5); margin-top:16px; margin-bottom:4px; letter-spacing:0.5px;">Tita La Remedios</div>
+  <div style="font-size:13px; color:#6a4030; font-weight:700; margin-bottom:8px; text-align:center; font-style:italic;">Lo que haces cada día… está ensuciando tu casa.</div>
+  
+  <!-- Badge -->
+  <div style="background:rgba(200,52,26,0.08); border:1px solid rgba(200,52,26,0.25); border-radius:50px; padding:5px 16px; margin-bottom:32px;">
+    <span style="font-size:12px; color:#c8341a; font-weight:800; text-transform:uppercase; letter-spacing:1px;">🔒 Accede a lo que nadie te explica</span>
+  </div>
+
+  <!-- Card login -->
+  <div style="width:100%; max-width:340px; background:rgba(255,255,255,0.9); border:1px solid rgba(200,52,26,0.15); border-radius:20px; padding:24px; backdrop-filter:blur(10px);">
+    <div style="font-size:11px; color:#a05040; text-transform:uppercase; letter-spacing:1.2px; font-weight:800; margin-bottom:8px;">Contraseña de acceso</div>
+    <input type="password" id="pwd-input" placeholder="Introduce la palabra que te di..." onkeydown="if(event.key==='Enter')comprobarPwd()"
+      style="width:100%; padding:13px 16px; background:#fff8f5; border:1px solid rgba(200,52,26,0.2); border-radius:12px; color:#1a0a00; font-size:15px; font-family:'Nunito',sans-serif; font-weight:600; outline:none; margin-bottom:10px;">
+    <div id="pwd-error" style="display:none; color:#ff6b4a; font-size:13px; font-weight:700; margin-bottom:10px; text-align:center; background:rgba(200,52,26,0.1); padding:8px; border-radius:8px;">
+      ⚠️ Pamplinas... esa no es la contraseña correcta
+    </div>
+    <button onclick="comprobarPwd()" style="width:100%; padding:14px; border-radius:50px; border:none; background:linear-gradient(135deg, #c8341a, #e8501a); color:#fff; font-size:16px; font-weight:800; font-family:'Nunito',sans-serif; cursor:pointer; box-shadow:0 4px 20px rgba(200,52,26,0.4); letter-spacing:0.5px;">
+      Quiero ver esto →
+    </button>
+  </div>
+
+  <div style="margin-top:20px; font-size:12px; color:#8a6050; text-align:center; font-weight:600;">
+    ¿Aún no tienes acceso?<br>
+    <span style="color:#c8341a; cursor:pointer; font-weight:800;" onclick="alert('Hazte suscriptora por solo 2,99€/mes y consigue acceso completo a la Tita Remedios')">Descubre todo lo que estás haciendo mal en casa →</span>
+  </div>
+</div>
+
+<div id="app-screen" style="display:none;">
+<div class="header">
+  <img src="https://raw.githubusercontent.com/titalaremedios/titalaremedios.github.io/main/tita.jpg.png" style="width:90px; height:90px; border-radius:50%; object-fit:cover; object-position:center 30%; border:3px solid var(--red); box-shadow:0 0 20px rgba(200,52,26,0.3); margin:0 auto 10px; display:block;">
+  <div class="tita-name">Tita La Remedios</div>
+  <div class="tita-bio">⚠️ Lo haces cada día... y no lo ves</div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="show('consejo', this)">💡 Hoy</button>
+  <button class="nav-btn" onclick="show('chat', this)">💬 Consulta</button>
+  <button class="nav-btn" onclick="show('test', this)">📋 Test</button>
+</div>
+
+<!-- CONSEJO DEL DIA -->
+<div id="sec-consejo" class="section active">
+  <div class="card card-red">
+    <div class="consejo-badge">⚠️ Pamplina del día</div>
+    <div class="consejo-titulo" id="c-titulo">LA ENSUCIAS</div>
+    <div class="consejo-sub" id="c-sub">(y ni te has dado cuenta)</div>
+    <div class="consejo-texto" id="c-texto">Cargando el consejo de la Tita...</div>
+    <div class="consejo-nav">
+      <button class="consejo-btn" onclick="anteriorConsejo()">← Anterior</button>
+      <span class="consejo-count" id="c-count">1 / 10</span>
+      <button class="consejo-btn" onclick="siguienteConsejo()">Siguiente →</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="pamplina-tag">💣 Pamplinas...</div>
+    <p style="font-size:14px; color:var(--text2); line-height:1.6; font-weight:600;" id="c-dato">Cargando dato curioso...</p>
+  </div>
+
+  <div class="card" style="text-align:center;">
+    <p style="font-size:13px; color:var(--text2); font-weight:700; margin-bottom:10px;">¿Quieres que la Tita te diga qué más haces mal?</p>
+    <button class="btn-test" onclick="show('test', document.querySelectorAll('.nav-btn')[2])" style="font-size:14px; padding:12px;">Hacer el test completo 👵</button>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div id="sec-chat" class="section">
+  <div class="card">
+    <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+      <img src="https://raw.githubusercontent.com/titalaremedios/titalaremedios.github.io/main/tita.jpg.png" style="width:40px; height:40px; border-radius:50%; object-fit:cover; object-position:center 30%; border:2px solid var(--red); flex-shrink:0;">
+      <div>
+        <div style="font-family:'Fredoka One',cursive; color:var(--red2); font-size:16px;">Consulta a la Tita</div>
+        <div style="font-size:11px; color:var(--text3); font-weight:700;">Responde en segundos • Siempre tiene razón</div>
+      </div>
+    </div>
+    <div class="chat-msgs" id="chat-msgs">
+      <div class="msg tita">
+        <div class="tita-msg-name">👵 Tita Remedios</div>
+        ¡Pamplinas! ¿Qué quieres saber? Pregúntame lo que sea sobre tu salud, tu casa o tus hábitos... que seguro que algo estás haciendo mal.
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chat-in" placeholder="Pregunta a la Tita..." onkeydown="if(event.key==='Enter')enviar()">
+      <button class="chat-send" onclick="enviar()">→</button>
+    </div>
+  </div>
+  <div class="quick-btns">
+    <button class="quick-btn" onclick="preg('¿Cómo limpio bien el baño?')">🚿 Limpiar el baño</button>
+    <button class="quick-btn" onclick="preg('¿Por qué me huelen los pies?')">👟 Me huelen los pies</button>
+    <button class="quick-btn" onclick="preg('¿Cada cuánto debo lavar las sábanas?')">🛏️ Las sábanas</button>
+    <button class="quick-btn" onclick="preg('¿Cómo quito el mal olor de la nevera?')">❄️ Olor nevera</button>
+    <button class="quick-btn" onclick="preg('¿Estoy durmiendo bien?')">😴 Dormir bien</button>
+    <button class="quick-btn" onclick="preg('¿Cuándo debo cambiar el cepillo de dientes?')">🪥 Cepillo dientes</button>
+  </div>
+</div>
+
+<!-- TEST -->
+<div id="sec-test" class="section">
+  <div id="test-intro-screen">
+    <div class="test-intro">
+      <img src="https://raw.githubusercontent.com/titalaremedios/titalaremedios.github.io/main/tita.jpg.png" style="width:100px; height:100px; border-radius:50%; object-fit:cover; object-position:center 30%; border:3px solid var(--red); box-shadow:0 0 20px rgba(200,52,26,0.3); margin:0 auto 12px; display:block;">
+      <div class="test-title">¿Cuántas pamplinas haces al día?</div>
+      <div class="test-sub">10 preguntas • La Tita te dice la verdad<br>aunque duela</div>
+    </div>
+    <button class="btn-test" onclick="iniciarTest()">Empezar el test 🔍</button>
+  </div>
+
+  <div id="test-screen" style="display:none;">
+    <div class="test-progress" id="test-progress"></div>
+    <div id="pregunta-container"></div>
+    <button class="btn-test" id="btn-siguiente" onclick="siguientePregunta()" disabled>Siguiente →</button>
+  </div>
+
+  <div id="test-resultado" style="display:none;">
+    <div class="resultado-card">
+      <div class="resultado-emoji" id="res-emoji">😱</div>
+      <div class="resultado-titulo" id="res-titulo">PAMPLINAS DETECTADAS</div>
+      <div class="resultado-score" id="res-score">7/10</div>
+      <div class="resultado-texto" id="res-texto">La Tita tiene mucho que decirte...</div>
+    </div>
+    <div class="card" style="margin-top:12px;" id="res-detalle"></div>
+    <button class="btn-test" onclick="reiniciarTest()" style="margin-top:8px;">Repetir el test 🔄</button>
+    <button class="btn-test" onclick="compartirResultado()" style="margin-top:8px; background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);">Compartir en Instagram 📲</button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="bottom-btn active" onclick="show('consejo', null, this)">
+    <span class="icon">💡</span>
+    <span class="label">Hoy</span>
+  </button>
+  <button class="bottom-btn" onclick="show('chat', null, this)">
+    <span class="icon">💬</span>
+    <span class="label">Consulta</span>
+  </button>
+  <button class="bottom-btn" onclick="show('test', null, this)">
+    <span class="icon">📋</span>
+    <span class="label">Test</span>
+  </button>
+</div>
+
+<script>
+// SONIDO ENTRADA
+function playEntrySound() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(523, ctx.currentTime);
+    osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+    osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.5);
+  } catch(e) {}
+}
+
+// LOGIN
+function comprobarPwd() {
+  const pwd = document.getElementById('pwd-input').value.trim().toUpperCase();
+  const error = document.getElementById('pwd-error');
+  if (pwd === 'PAMPLINAS') {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display = 'block';
+    playEntrySound();
+  } else {
+    error.style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+    document.getElementById('pwd-input').focus();
+  }
+}
+
+// NAVEGACIÓN
+function show(sec, navBtn, bottomBtn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + sec).classList.add('active');
+  if (navBtn) {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    navBtn.classList.add('active');
+  }
+  if (bottomBtn) {
+    document.querySelectorAll('.bottom-btn').forEach(b => b.classList.remove('active'));
+    bottomBtn.classList.add('active');
+  }
+}
+
+// CONSEJOS
+const consejos = [
+  { titulo: "LA ENSUCIAS", sub: "(y llevas años así)", texto: "Duermes encima de eso cada noche.\nEl colchón nunca lo limpias.\nSolo cambias las sábanas... y ya.\n\nDebajo hay sudor, piel muerta y hasta 2 millones de ácaros.\n\nVoltéalo. Aspíralo. Ponlo al sol.\nCambia el olor de tu dormitorio en una hora.", dato: "Lo que tienes debajo no es colchón. Es un nido. Los ácaros se multiplican con tu calor cada noche. Y tú tan contenta durmiendo ahí." },
+  { titulo: "NO TE LIMPIAS", sub: "(y te lo crees)", texto: "Te duchas dos minutos y crees que es suficiente.\nNo lo es.\n\nDetrás de las orejas. El ombligo. La espalda.\nZonas que casi nadie limpia bien.\n\nTómate tu tiempo.\nUna ducha bien hecha cambia hasta el olor de tu ropa.", dato: "El ombligo tiene de media 67 tipos de bacterias en personas que no lo limpian. ¿Cuándo fue la última vez que limpiaste el tuyo? Pamplinas." },
+  { titulo: "LA USAS SUCIA", sub: "(y ni lo sabes)", texto: "Esa esponja de cocina que usas para los platos...\nes el objeto más sucio de tu casa.\nMás que el inodoro.\n\nY la usas para limpiar donde comes.\n\nCámbiala cada semana.\nO hiérvela 2 minutos.\nSin excusas.", dato: "54 mil millones de bacterias por centímetro cúbico. Eso tiene tu esponja. Más que cualquier otra superficie de tu hogar. Y tú fregando platos con ella." },
+  { titulo: "NO LIMPIA", sub: "(y la usas igual)", texto: "La lavadora también se lava.\nSi no la limpias cada mes...\nla ropa sale oliendo a humedad aunque uses el mejor detergente.\n\nNo es el detergente.\nEres tú.\n\nCiclo vacío a 90 grados con vinagre.\nUna vez al mes. Sin falta.", dato: "El moho que se acumula dentro de tu lavadora se transfiere a la ropa limpia. Ese olor raro que no se va tiene un nombre: desidia." },
+  { titulo: "LO HACES MAL", sub: "(y te lo comes)", texto: "Metes los platos sin aclarar.\nLos cubiertos hacia arriba.\nY crees que el lavavajillas hace magia.\n\nNo la hace.\n\nEl agua no llega a todo.\nLlevas años comiendo con platos sucios.\nY tan contenta.", dato: "Los restos secos crean una capa que el agua no puede eliminar. El aclarado previo no es opcional. Es necesario. Pamplinas lo que llevas haciendo." },
+  { titulo: "HUELE MAL", sub: "(y es tu culpa)", texto: "La nevera huele.\nY sabes por qué.\nAlimentos sin tapar.\nMezclas de olores.\nY nunca la limpias por dentro.\n\nBicarbonato en un vasito absorbe olores.\nPero primero límpiala con agua y vinagre.\nNo lo habías hecho nunca. ¿Verdad?", dato: "Los alimentos sin tapar contaminan el aire interior de la nevera y transfieren olores y bacterias a todo lo demás. Lo que te comes tiene el olor de todo." },
+  { titulo: "NO HUELE", sub: "(y debería)", texto: "Las metes en el armario nada más quitártelas.\nY el olor se queda dentro.\nPara siempre.\n\nNo es el calzado.\nEs lo que haces después.\n\nDéjalas al aire mínimo 48 horas.\nBicarbonato dentro.\nY al sol.", dato: "Ese olor no es normal. Es una bacteria que vive en tu calzado y se multiplica cuando lo encierras. Sin ventilación, crece sin parar." },
+  { titulo: "NO ES FRÍO", sub: "(lo estás ignorando)", texto: "Tienes frío todo el tiempo.\nY los demás no.\n\nNo es que seas friolera.\nPuede ser falta de hierro.\nTiroides.\nO que no comes suficiente.\n\nEl cuerpo siempre avisa.\nEscúchalo antes de que avise más fuerte.", dato: "La sensación constante de frío puede ser anemia, hipotiroidismo o mala circulación. El cuerpo lleva tiempo diciéndotelo. ¿Tú le estás escuchando?" },
+  { titulo: "NO ES CANSANCIO", sub: "(hay otra razón)", texto: "Te duele la cabeza.\nEstás cansada.\nSin razón aparente.\n\nAntes de tomar ibuprofeno...\nbebe dos vasos de agua.\nEspera 20 minutos.\n\nSi se va, era sed.\nPamplinas lo que haces.", dato: "Una deshidratación del 2% del peso corporal reduce el rendimiento cognitivo un 20%. El café no hidrata. El agua sí. Y tú bebiendo café para el dolor de cabeza." },
+  { titulo: "NO ES HAMBRE", sub: "(tu cuerpo pide otra cosa)", texto: "Picas entre horas.\nSiempre.\nY no sabes por qué.\n\nAntes de comer...\nbebe un vaso de agua.\nEspera 15 minutos.\n\nSi se va, era sed.\nSi no, come.\nAsí de simple.", dato: "El hipotálamo confunde las señales de hambre y sed. El 37% de los adultos confunden sed con hambre. Y tú comiendo cuando lo que necesitas es agua." },
+  { titulo: "LO RESPIRAS", sub: "(y no lo sabes)", texto: "El polvo de tu casa no es solo suciedad.\nSon ácaros.\nPiel muerta.\nPartículas químicas.\n\nY lo respiras cada noche.\n\nAspira con filtro HEPA.\nVentila 10 minutos al día.\nSin excusas.", dato: "El aire interior de una casa sin ventilar está hasta 5 veces más contaminado que el de la calle. Y pasas el 90% del tiempo dentro. Pamplinas." },
+  { titulo: "NO ESTÁ LIMPIO", sub: "(aunque lo creas)", texto: "Fregar el suelo con el mismo cubo sin cambiar el agua...\nes redistribuir la suciedad.\nNada más.\n\nCambia el agua cada habitación.\nUn chorrito de lejía.\n\nLlevas años manchando mientras limpias.", dato: "El agua sucia del cubo deposita millones de bacterias en el suelo recién fregado. Limpio por fuera. Sucio por dentro. Y tú tan orgullosa." },
+  { titulo: "TE LO METES EN LA BOCA", sub: "(y no está limpio)", texto: "El cepillo de dientes está en el baño.\nCerca del inodoro.\nY cada vez que tiras de la cadena...\nlas bacterias viajan hasta 2 metros.\n\nTápalo.\nO guárdalo lejos.\nLo que te metes en la boca cada mañana...", dato: "Los cepillos de dientes guardados cerca del inodoro contienen bacterias fecales. La cadena lanza un aerosol invisible. Invisible pero ahí." },
+  { titulo: "DUERMES SOBRE ESTO", sub: "(y llevas años así)", texto: "La almohada que usas cada noche...\nacumula sudor.\nCélulas muertas.\nHongos.\n\nY nunca la lavas.\n\nCada 2 meses en la lavadora.\nCámbiala cada 2 años.\nLo que apoya tu cara cada noche no es lo que crees.", dato: "Una almohada de 2 años puede tener hasta un 10% de su peso en ácaros muertos y sus excrementos. Eso es lo que hueles cuando te acuestas." },
+  { titulo: "NO TE HIDRATAS", sub: "(y se nota)", texto: "Piel seca.\nLabios cortados.\nCansancio sin razón.\n\nNo es la edad.\nEs que no bebes agua suficiente.\n\nNo esperes a tener sed.\nBebe antes de que el cuerpo te lo pida.\nYa va tarde cuando sientes sed.", dato: "Cuando sientes sed ya estás deshidratada en un 1-2%. La sed es el último aviso, no el primero. Tu cuerpo lleva horas pidiendo agua sin que le escuches." },
+  { titulo: "LO PISAS", sub: "(y luego lo tocas todo)", texto: "Los zapatos de la calle entran en casa.\nY con ellos...\nbacterias, pesticidas y suciedad.\n\nLuego lo pisas descalza.\nLuego lo tocas.\n\nQuítatelos en la entrada.\nSiempre.\nLo que hay en esas suelas no quieres saberlo.", dato: "Los zapatos transportan hasta 421.000 bacterias diferentes en sus suelas. Incluyendo E. coli. Y tú dejándolos entrar en casa tan tranquila." },
+  { titulo: "NO VENTILA", sub: "(y huele sin saberlo)", texto: "Tu casa huele.\nPero tú no lo notas.\nLlevas dentro demasiado tiempo.\n\nTe has acostumbrado.\nLos que entran sí lo notan.\n\nAbre ventanas cruzadas.\n10 minutos cada mañana.\nRenueva el aire. Completamente.", dato: "Nos acostumbramos a los olores de nuestro hogar en menos de 20 minutos. Los invitados lo notan al entrar. Tú ya no lo percibes. Pero está ahí." },
+  { titulo: "LO USAS CADUCADO", sub: "(sin darte cuenta)", texto: "El rímel dura 3 meses.\nLa crema hidratante, 12 meses abierta.\nEl protector solar, un año.\n\nY tú usándolos hasta que se acaban.\n\nLos cosméticos caducados irritan.\nInfectan.\nY tú poniéndotelos en la cara cada día.", dato: "Los cosméticos caducados cambian su composición y pueden contener bacterias peligrosas para los ojos y la piel. La fecha no es decorativa." },
+  { titulo: "NO LO LIMPIAS", sub: "(y lo usas cada día)", texto: "Las gafas que llevas todo el día...\nestán llenas de bacterias de tus manos.\nDe tu cara.\nDel ambiente.\n\nY nunca las limpias bien.\n\nAgua y jabón cada mañana.\nLo que tienes pegado a los ojos todo el día...", dato: "Las monturas de las gafas acumulan grasa y bacterias que causan acné e irritaciones. Lo que más cerca tienes de la cara es lo menos que limpias." },
+  { titulo: "LO HACES AL REVÉS", sub: "(y no funciona)", texto: "Friegas de dentro hacia afuera.\nY extiendes la suciedad por todo el suelo.\n\nNo es limpiar.\nEs redistribuir.\n\nEmpeza siempre por las esquinas.\nVe hacia el centro.\nNunca pases la fregona dos veces sin aclarar.", dato: "La técnica correcta va de la zona más limpia a la más sucia, y de arriba hacia abajo. Al revés solo recoloca la suciedad. Pamplinas." },
+  { titulo: "TE RESECA", sub: "(y tú poniendo más crema)", texto: "Te duchas con agua muy caliente.\nLa piel se reseca.\nY pones crema para compensar.\n\nLa crema no compensa lo que el agua caliente destruye.\nBaja la temperatura.\n\nEntre 36 y 38 grados.\nTu piel te lo agradecerá.", dato: "El agua caliente elimina los aceites naturales de la piel en menos de 5 minutos. Luego gastas dinero en cremas para reponer lo que tú misma quitaste." },
+  { titulo: "NO LO AIREAS", sub: "(y coge humedad)", texto: "Haces la cama nada más levantarte.\nY atrapas dentro el calor y la humedad de tu cuerpo.\n\nEso es lo que les gusta a los ácaros.\nCalor y humedad.\n\nEspera 20 minutos con la cama destapada.\nLuego hazla.\nAsí de fácil.", dato: "Los ácaros necesitan humedad para sobrevivir. Airear la cama 20 minutos cada mañana reduce drásticamente su población. Y tú haciéndola a toda prisa." },
+  { titulo: "LO GUARDAS HÚMEDO", sub: "(y luego huele)", texto: "La toalla húmeda al armario.\nLa ropa sin secar bien al cajón.\n\nEso que huele a cerrado...\ntiene una causa muy concreta.\n\nExtiéndelo todo bien.\nDeja que se seque completamente.\nAntes de guardar. Siempre.", dato: "La ropa guardada húmeda desarrolla hongos en menos de 24 horas. Ese olor a cerrado del armario no es el armario. Eres tú." },
+  { titulo: "NO ES ALERGIA", sub: "(es tu casa)", texto: "Estornudas en casa.\nFuera no.\n\nNo es el polen.\nSon los ácaros de tu hogar.\nO el moho.\n\nAspira con filtro.\nVentila cada día.\nLava la ropa de cama a 60 grados.\nYa verás qué diferencia.", dato: "El 85% de las personas con alergia al polvo son alérgicas a los ácaros domésticos. La solución no está en la farmacia. Está en la aspiradora." },
+  { titulo: "LO CONTAMINAS", sub: "(sin querer)", texto: "Estornudas con la mano.\nLuego tocas todo.\nEl pomo. El móvil. La nevera.\n\nY así se distribuyen los gérmenes.\n\nCúbrete con el codo.\nSiempre.\nNo con la mano. Nunca con la mano.", dato: "Un estornudo lanza hasta 40.000 gotículas a 160 km/h. Las partículas pequeñas permanecen en el aire hasta 10 minutos. Y tú tapándote con la mano." },
+  { titulo: "NO LO CAMBIAS", sub: "(y debería)", texto: "El agua del florero lleva 2 días.\nYa está llena de bacterias.\nPor eso se mueren las flores.\n\nCámbiala cada 2 días.\nCorta un centímetro del tallo.\n\nDuran el doble.\nSin hacer nada más.", dato: "Las bacterias en el agua del florero bloquean los vasos del tallo e impiden que la flor se hidrate. Agua limpia cada 2 días. Así de simple." },
+  { titulo: "LO MEZCLAS", sub: "(y es peligroso)", texto: "Lejía con vinagre.\nLejía con amoniaco.\nParecen inocentes.\n\nNo lo son.\nCrean gases tóxicos.\nEn espacios cerrados pueden ser muy peligrosos.\n\nUno tras otro.\nNunca juntos.\nNunca.", dato: "La mezcla de lejía con amoniaco produce cloraminas, gases que causan desde irritación hasta problemas respiratorios graves. No mezcles productos de limpieza." },
+  { titulo: "NO LO VES", sub: "(pero está ahí)", texto: "El moho negro de las juntas del baño.\nNo es solo estética.\nLibera esporas al aire.\nY las respiras cada día.\n\nLejía diluida en las juntas.\nVentila el baño después de cada ducha.\nSiempre.", dato: "El moho negro puede causar problemas respiratorios y alergias. El baño sin ventilación es su hábitat favorito. Y tú duchándote ahí cada día." },
+  { titulo: "LO IGNORAS", sub: "(y se hace mayor)", texto: "Una gotera pequeña.\nNo pasa nada.\nYa la arreglo.\n\nEn 48 horas crea humedad.\nEn una semana, moho.\nEn un mes, daños que cuestan mucho dinero.\n\nArréglala el primer día.\nNo el último.", dato: "Una gotera de un litro al día crea suficiente humedad para desarrollar moho en menos de 48 horas. Lo pequeño se hace grande muy rápido." },
+  { titulo: "NO ES SUCIEDAD", sub: "(es cal)", texto: "Las manchas blancas de los grifos y mamparas.\nEl jabón no las quita.\nNi el limpiacristales.\n\nEs cal.\nY la cal la quita el vinagre.\n\nEmpapa. Espera 15 minutos.\nSe va solo.\nPamplinas lo que llevas gastando en productos.", dato: "La cal es carbonato cálcico que se deposita al evaporarse el agua. Los productos convencionales no la eliminan. El ácido del vinagre sí la disuelve." }
+];
+
+let consejoActual = 0;
+
+function mostrarConsejo(i) {
+  const c = consejos[i];
+  document.getElementById('c-titulo').textContent = c.titulo;
+  document.getElementById('c-sub').textContent = c.sub;
+  document.getElementById('c-texto').textContent = c.texto;
+  document.getElementById('c-dato').textContent = c.dato;
+  document.getElementById('c-count').textContent = (i + 1) + ' / ' + consejos.length;
+}
+
+function siguienteConsejo() {
+  consejoActual = (consejoActual + 1) % consejos.length;
+  mostrarConsejo(consejoActual);
+}
+
+function anteriorConsejo() {
+  consejoActual = (consejoActual - 1 + consejos.length) % consejos.length;
+  mostrarConsejo(consejoActual);
+}
+
+// Consejo del día basado en mes y día
+const ahora = new Date();
+const mes = ahora.getMonth(); // 0-11
+const dia = ahora.getDate() - 1; // 0-29
+// Cada mes muestra los 30 consejos en orden
+// Los meses pares empiezan desde el principio
+// Los meses impares empiezan desde el medio
+const offset = (mes % 2 === 0) ? 0 : Math.floor(consejos.length / 2);
+consejoActual = (offset + dia) % consejos.length;
+mostrarConsejo(consejoActual);
+
+// CHAT IA
+async function enviar() {
+  const inp = document.getElementById('chat-in');
+  const q = inp.value.trim();
+  if (!q) return;
+  inp.value = '';
+  const msgs = document.getElementById('chat-msgs');
+
+  const uMsg = document.createElement('div');
+  uMsg.className = 'msg user';
+  uMsg.textContent = q;
+  msgs.appendChild(uMsg);
+
+  const loadMsg = document.createElement('div');
+  loadMsg.className = 'msg tita loading';
+  loadMsg.innerHTML = '<div class="tita-msg-name">👵 Tita Remedios</div>Ay, déjame pensar...';
+  msgs.appendChild(loadMsg);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  const sistema = `Eres la Tita Remedios, una abuela sabia, directa y un poco gruñona que da consejos de salud, hogar, higiene y hábitos cotidianos. Tu estilo es exactamente este: directo, con humor, un poco regañón pero siempre con razón. Usas frases como "pamplinas", "lo haces mal", "y ni lo sabías". Siempre dices la verdad aunque duela. Respondes en máximo 4 frases. Sin tecnicismos. Como hablaría una abuela española muy lista. Siempre en español de España. Empiezas las respuestas con una pequeña regañina antes del consejo.`;
+
+  try {
+    const res = await fetch('/.netlify/functions/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: q })
+    });
+    const data = await res.json();
+    loadMsg.classList.remove('loading');
+    loadMsg.innerHTML = '<div class="tita-msg-name"><img src="https://raw.githubusercontent.com/titalaremedios/titalaremedios.github.io/main/tita.jpg.png" style="width:24px;height:24px;border-radius:50%;object-fit:cover;object-position:center 30%;border:1.5px solid var(--red);vertical-align:middle;margin-right:4px;">TITA REMEDIOS</div>' + data.reply;
+  } catch (e) {
+    loadMsg.classList.remove('loading');
+    loadMsg.innerHTML = '<div class="tita-msg-name">👵 Tita Remedios</div>Pamplinas, algo ha fallado. Inténtalo otra vez.';
+  }
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function preg(p) {
+  document.getElementById('chat-in').value = p;
+  enviar();
+}
+
+// TEST
+const todasPreguntas = [
+  { pregunta: "¿Cada cuánto lavas tus sábanas?", opciones: ["Cada semana", "Cada 2 semanas", "Cada mes o más", "Cuando me acuerdo"], correcta: 0, explicacion: "Las sábanas deben lavarse cada 7-10 días. Acumulas células muertas, sudor y ácaros que no ves pero están ahí." },
+  { pregunta: "¿Cuándo cambias tu cepillo de dientes?", opciones: ["Cada 3 meses", "Cada 6 meses", "Cuando está muy gastado", "Casi nunca lo cambio"], correcta: 0, explicacion: "Cada 3 meses máximo. Un cepillo viejo no limpia y acumula bacterias. Pamplinas lo que llevas usando." },
+  { pregunta: "¿Limpias el tambor de tu lavadora?", opciones: ["Sí, cada mes", "A veces", "No sabía que había que hacerlo", "¿El tambor de la lavadora?"], correcta: 0, explicacion: "El tambor y el filtro de la lavadora necesitan limpieza mensual. Si huele a humedad la ropa, ya sabes por qué." },
+  { pregunta: "¿Cuánta agua bebes al día?", opciones: ["Más de 8 vasos", "Entre 4 y 8 vasos", "Menos de 4 vasos", "Prefiero refrescos"], correcta: 0, explicacion: "Mínimo 8 vasos de agua al día. El cansancio, el dolor de cabeza y el mal humor a menudo son solo deshidratación." },
+  { pregunta: "¿Volteas tu colchón?", opciones: ["Cada 3 meses", "Una vez al año", "Nunca lo he volteado", "No sabía que se podía voltear"], correcta: 0, explicacion: "Cada 3 meses. Un colchón sin voltear se hunde, acumula ácaros y te arruina la espalda. Lleva años pasando." },
+  { pregunta: "¿Cuánto tiempo te duchas?", opciones: ["5-10 minutos bien aprovechados", "Menos de 5 minutos", "Más de 15 minutos", "Depende del día"], correcta: 0, explicacion: "5-10 minutos es suficiente si te lavas bien. Más tiempo no significa más limpio, solo más agua gastada y piel reseca." },
+  { pregunta: "¿Lavas las frutas y verduras antes de comerlas?", opciones: ["Siempre, con agua abundante", "A veces", "Solo las que parecen sucias", "No, vienen limpias del súper"], correcta: 0, explicacion: "Siempre. Los pesticidas y bacterias no se ven. El súper no las lava por ti, pamplinas." },
+  { pregunta: "¿Cuándo fue la última vez que limpiaste la pantalla del móvil?", opciones: ["Esta semana", "Este mes", "No recuerdo", "Nunca"], correcta: 0, explicacion: "La pantalla del móvil tiene más bacterias que un inodoro. Límpiala con alcohol una vez a la semana." },
+  { pregunta: "¿Cambias el estropajo de la cocina?", opciones: ["Cada semana", "Cada 2-3 semanas", "Cuando huele mal", "Cuando se cae a trozos"], correcta: 0, explicacion: "Cada semana. El estropajo es el objeto más sucio de tu casa. Más que el váter. Y lo usas para limpiar platos." },
+  { pregunta: "¿Ventilas tu casa cada día?", opciones: ["Sí, mínimo 10 minutos", "A veces", "Solo cuando hace calor", "Casi nunca"], correcta: 0, explicacion: "Ventilar 10 minutos al día renueva el aire, reduce la humedad y elimina virus. El aire de casa sin ventilar es más contaminado que el de la calle." },
+  { pregunta: "¿Limpias el filtro del aire acondicionado?", opciones: ["Sí, cada temporada", "Una vez al año", "Nunca", "No tengo aire acondicionado"], correcta: 0, explicacion: "El filtro del aire acondicionado acumula polvo, bacterias y hongos. Si no lo limpias, estás respirando todo eso. Pamplinas." },
+  { pregunta: "¿Cuándo limpias las juntas del baño?", opciones: ["Cada semana", "Cada mes", "Cuando se ven negras", "Nunca las he limpiado"], correcta: 0, explicacion: "Las juntas del baño acumulan moho que es perjudicial para la salud. Límpialas con bicarbonato y vinagre cada semana." },
+  { pregunta: "¿Desconectas los aparatos electrónicos cuando no los usas?", opciones: ["Siempre", "A veces", "Casi nunca", "Los dejo siempre encendidos"], correcta: 0, explicacion: "Los aparatos en standby consumen hasta un 10% de la factura de la luz. Desenchúfalos y ahorras dinero sin hacer nada más." },
+  { pregunta: "¿Cada cuánto limpias el horno?", opciones: ["Después de cada uso", "Una vez al mes", "Cuando hay mucha grasa", "Casi nunca"], correcta: 0, explicacion: "Los restos de grasa quemada en el horno son cancerígenos. Límpialo al menos una vez al mes aunque no parezca sucio." },
+  { pregunta: "¿Lavas tu almohada?", opciones: ["Cada 2-3 meses", "Una vez al año", "Nunca la lavo", "¿Se puede lavar?"], correcta: 0, explicacion: "La almohada acumula sudor, células muertas y ácaros. Lávala cada 2-3 meses o estarás durmiendo en un nido de bacterias." },
+  { pregunta: "¿Limpias la goma de la puerta de la lavadora?", opciones: ["Sí, regularmente", "De vez en cuando", "Nunca", "No sabía que había que hacerlo"], correcta: 0, explicacion: "La goma de la puerta acumula humedad y moho. Límpiala con vinagre cada semana y deja la puerta abierta entre lavados." },
+  { pregunta: "¿Cuándo cambias las toallas de baño?", opciones: ["Cada 2-3 días", "Una vez a la semana", "Cada 2 semanas", "Cuando huelen mal"], correcta: 0, explicacion: "Las toallas deben cambiarse cada 2-3 días. En ese tiempo acumulan bacterias, células muertas y humedad. Lo que te secas después de ducharte..." },
+  { pregunta: "¿Limpias la nevera por dentro?", opciones: ["Una vez al mes", "Cada 3 meses", "Cuando hay derrames", "Casi nunca"], correcta: 0, explicacion: "La nevera debe limpiarse por dentro cada mes. Los gérmenes se multiplican aunque haga frío y contaminan los alimentos." },
+  { pregunta: "¿Aspiras debajo de los muebles?", opciones: ["Sí, regularmente", "A veces", "Casi nunca", "Nunca muevo los muebles"], correcta: 0, explicacion: "Debajo de los muebles se acumula polvo, ácaros y suciedad que afecta a la calidad del aire de tu casa. Aspira ahí al menos una vez al mes." },
+  { pregunta: "¿Limpias el desagüe del baño?", opciones: ["Cada semana", "Cuando se atasca", "Cuando huele mal", "Nunca"], correcta: 0, explicacion: "El desagüe acumula pelo, jabón y bacterias que producen mal olor. Límpialo cada semana con bicarbonato y vinagre caliente." },
+  { pregunta: "¿Cuándo limpias las persianas o cortinas?", opciones: ["Cada mes", "Cada 3 meses", "Una vez al año", "Nunca"], correcta: 0, explicacion: "Las persianas acumulan polvo que se distribuye por toda la habitación cada vez que las subes o bajas. Límpialas cada mes." },
+  { pregunta: "¿Usas la misma tabla de cortar para carne y verduras?", opciones: ["No, tengo tablas diferentes", "A veces la misma", "Siempre la misma", "No lo había pensado"], correcta: 0, explicacion: "Usar la misma tabla para carne y verduras puede causar contaminación cruzada con bacterias peligrosas como la salmonela. Pamplinas." },
+  { pregunta: "¿Limpias el microondas por dentro?", opciones: ["Después de cada uso", "Una vez a la semana", "Cuando hay manchas", "Casi nunca"], correcta: 0, explicacion: "Un vaso de agua con limón 2 minutos en el microondas afloja toda la suciedad. Luego un trapo y listo. Sin excusas." },
+  { pregunta: "¿Cada cuánto limpias el baño completo?", opciones: ["Una vez a la semana", "Cada 2 semanas", "Una vez al mes", "Cuando no puedo más"], correcta: 0, explicacion: "El baño debe limpiarse una vez a la semana mínimo. Es el lugar con más bacterias de tu casa y lo usas varias veces al día." },
+  { pregunta: "¿Guardas los zapatos en el armario sin airearlos?", opciones: ["Los aireo siempre antes", "A veces los aireo", "Los guardo directamente", "No lo había pensado"], correcta: 0, explicacion: "Los zapatos después de usarlos necesitan airearse al menos 24 horas. Si los guardas directamente, el olor y las bacterias se quedan para siempre." },
+  { pregunta: "¿Limpias el cabezal de la ducha?", opciones: ["Sí, cada mes", "Cada 3 meses", "Nunca", "¿Hay que limpiarlo?"], correcta: 0, explicacion: "El cabezal de la ducha acumula cal y bacterias. Sumérgelo en vinagre una hora al mes y verás cuánta suciedad suelta." },
+  { pregunta: "¿Cuándo lavas los trapos de cocina?", opciones: ["Cada 2-3 días", "Una vez a la semana", "Cuando huelen mal", "Cuando están muy sucios"], correcta: 0, explicacion: "Los trapos de cocina deben lavarse cada 2-3 días a 60 grados. Son el foco de bacterias más peligroso de tu cocina." },
+  { pregunta: "¿Limpias el pomo de las puertas?", opciones: ["Sí, regularmente", "De vez en cuando", "Nunca", "No lo había pensado"], correcta: 0, explicacion: "Los pomos de las puertas son de los objetos más tocados y menos limpiados de la casa. Limpia con alcohol una vez a la semana." },
+  { pregunta: "¿Duermes con el móvil en la mesilla de noche?", opciones: ["No, lo dejo fuera del dormitorio", "Sí pero boca abajo", "Sí y lo miro si me despierto", "Duerme conmigo en la cama"], correcta: 0, explicacion: "El móvil emite luz azul que altera el sueño y notificaciones que interrumpen el descanso. Déjalo fuera del dormitorio y dormirás mejor." },
+  { pregunta: "¿Limpias los enchufes e interruptores de la luz?", opciones: ["Sí, regularmente", "Casi nunca", "Nunca", "No lo había pensado"], correcta: 0, explicacion: "Los interruptores de la luz son de los objetos más tocados de la casa. Acumulan gérmenes que nadie limpia nunca. Pasa un trapo con alcohol." },
+  { pregunta: "¿Cuándo fue la última vez que limpiaste detrás de la nevera?", opciones: ["Hace menos de 6 meses", "Hace más de un año", "Nunca", "No sé ni cómo se mueve"], correcta: 0, explicacion: "Detrás de la nevera acumula polvo que hace que consuma más electricidad y se caliente más. Límpialo cada 6 meses." },
+  { pregunta: "¿Usas el mismo trapo para limpiar el baño y la cocina?", opciones: ["No, tengo trapos diferentes", "A veces el mismo", "Siempre el mismo", "No lo había pensado"], correcta: 0, explicacion: "Usar el mismo trapo para baño y cocina contamina las superficies donde preparas la comida con bacterias fecales. Pamplinas mayores." },
+  { pregunta: "¿Limpias los rodapiés de tu casa?", opciones: ["Sí, cada mes", "Cada 3 meses", "Cuando se ven muy sucios", "Nunca"], correcta: 0, explicacion: "Los rodapiés acumulan polvo y suciedad que nadie ve pero están ahí. Pásales un trapo húmedo una vez al mes." },
+  { pregunta: "¿Cuándo limpias el lavavajillas por dentro?", opciones: ["Una vez al mes", "Cada 3 meses", "Nunca", "¿Hay que limpiarlo?"], correcta: 0, explicacion: "El lavavajillas también se ensucia por dentro. Ponle un vaso de vinagre en el compartimento superior y haz un ciclo vacío al mes." },
+  { pregunta: "¿Aireras el edredón o manta?", opciones: ["Sí, regularmente", "En temporada de cambio", "Casi nunca", "Nunca"], correcta: 0, explicacion: "El edredón acumula humedad, sudor y ácaros. Airearlo al sol cada 2-3 semanas elimina los ácaros y el mal olor." },
+  { pregunta: "¿Limpias las ranuras del teclado del ordenador?", opciones: ["Sí, cada mes", "Cada 3 meses", "Casi nunca", "Nunca"], correcta: 0, explicacion: "El teclado acumula más bacterias que un inodoro. Voltéalo, sacúdelo y pásale alcohol cada mes. Lo que hay dentro te sorprendería." },
+  { pregunta: "¿Cuánto tiempo tardas en sacar la ropa de la lavadora?", opciones: ["Nada más terminar", "En la misma hora", "Cuando me acuerdo", "Al día siguiente"], correcta: 0, explicacion: "La ropa húmeda dentro de la lavadora desarrolla bacterias en menos de 2 horas. Ese olor a humedad que no se va tiene una causa." },
+  { pregunta: "¿Limpias las rejillas de ventilación de tu casa?", opciones: ["Sí, cada 3 meses", "Una vez al año", "Nunca", "No tengo rejillas"], correcta: 0, explicacion: "Las rejillas acumulan polvo que se distribuye por toda la habitación. Límpialas cada 3 meses con un trapo húmedo." },
+  { pregunta: "¿Cuándo cambias el agua del vaso del cepillo de dientes?", opciones: ["Lo lavo cada día", "Cada semana", "Cuando está sucia", "Nunca lo lavo"], correcta: 0, explicacion: "El vaso del cepillo de dientes acumula bacterias muy rápido. Lávalo con agua caliente y jabón cada semana." },
+  { pregunta: "¿Limpias el exterior de los armarios de cocina?", opciones: ["Cada semana", "Una vez al mes", "Cada 3 meses", "Casi nunca"], correcta: 0, explicacion: "El exterior de los armarios de cocina acumula grasa y polvo que se pega. Límpialo cada semana con un desengrasante." },
+  { pregunta: "¿Tienes plantas en casa y las riegas correctamente?", opciones: ["Sí, con medida", "Las riego mucho", "Las riego poco", "No tengo plantas"], correcta: 0, explicacion: "Regar demasiado las plantas produce humedad y hongos en la tierra que afectan al aire de la habitación. Menos es más." },
+  { pregunta: "¿Limpias el fondo de la papelera?", opciones: ["Sí, cada semana", "De vez en cuando", "Cuando huele mal", "Nunca"], correcta: 0, explicacion: "El fondo de la papelera acumula líquidos y bacterias aunque pongas bolsa. Límpiala con agua caliente y lejía cada semana." },
+  { pregunta: "¿Cuándo limpias el grifo de la cocina?", opciones: ["Cada día", "Cada semana", "Cuando lo veo sucio", "Casi nunca"], correcta: 0, explicacion: "El grifo de la cocina acumula cal, restos de comida y bacterias. Límpialo con vinagre cada semana para que brille y esté limpio." },
+  { pregunta: "¿Abres la ventana del baño después de ducharte?", opciones: ["Siempre", "A veces", "Casi nunca", "No tengo ventana en el baño"], correcta: 0, explicacion: "Ventilar el baño después de ducharte elimina la humedad y evita el moho. Si no tienes ventana pon el extractor al menos 15 minutos." },
+  { pregunta: "¿Limpias el mando a distancia?", opciones: ["Sí, cada semana", "De vez en cuando", "Casi nunca", "Nunca"], correcta: 0, explicacion: "El mando a distancia es uno de los objetos más tocados y menos limpiados de la casa. Tiene más bacterias de las que imaginas. Pásale alcohol." },
+  { pregunta: "¿Guardas los alimentos cocinados en la nevera antes de que se enfríen?", opciones: ["Los dejo enfriar y luego los guardo", "Los meto calientes directamente", "A veces uno, a veces otro", "Los dejo fuera hasta el día siguiente"], correcta: 0, explicacion: "Los alimentos calientes en la nevera suben la temperatura y estropean otros alimentos. Déjalos enfriar 30 minutos antes de guardarlos." },
+  { pregunta: "¿Limpias las bisagras de los armarios?", opciones: ["Sí, regularmente", "Casi nunca", "Nunca", "No lo había pensado"], correcta: 0, explicacion: "Las bisagras acumulan polvo y grasa que hace que chirríen y se deterioren. Límpialas y lubrícalas cada 6 meses." },
+  { pregunta: "¿Cuándo limpias el suelo debajo de la cama?", opciones: ["Cada semana", "Cada mes", "Cuando muevo la cama", "Nunca"], correcta: 0, explicacion: "Debajo de la cama es el paraíso de los ácaros y el polvo. Aspira ahí cada semana aunque no se vea. Está ahí seguro." },
+  { pregunta: "¿Limpias el exterior de la lavadora?", opciones: ["Sí, cada semana", "De vez en cuando", "Casi nunca", "Solo el interior"], correcta: 0, explicacion: "El exterior de la lavadora acumula polvo y humedad. Límpialo con un trapo húmedo cada semana, especialmente la goma de la puerta." },
+  { pregunta: "¿Cuándo fue la última vez que limpiaste las lámparas?", opciones: ["Hace menos de 3 meses", "Hace 6 meses", "Hace más de un año", "Nunca las he limpiado"], correcta: 0, explicacion: "Las lámparas acumulan polvo que reduce su luminosidad hasta un 30%. Límplalas cada 3 meses con un trapo seco." },
+  { pregunta: "¿Limpias el interior de los cajones de la cocina?", opciones: ["Cada 3 meses", "Una vez al año", "Cuando hay migas", "Nunca los vacío"], correcta: 0, explicacion: "Los cajones de la cocina acumulan migas, polvo y bacterias que contaminan los utensilios que guardas dentro. Vacíalos y límpialos cada 3 meses." }
+];
+
+function obtenerPreguntasAleatorias() {
+  const mezcladas = [...todasPreguntas].sort(() => Math.random() - 0.5);
+  return mezcladas.slice(0, 10);
+}
+
+let preguntas = obtenerPreguntasAleatorias();
+
+let preguntaActual = 0;
+let respuestas = [];
+let respondida = false;
+
+function iniciarTest() {
+  preguntas = obtenerPreguntasAleatorias();
+  preguntaActual = 0;
+  respuestas = [];
+  respondida = false;
+  document.getElementById('test-intro-screen').style.display = 'none';
+  document.getElementById('test-screen').style.display = 'block';
+  document.getElementById('test-resultado').style.display = 'none';
+  mostrarPregunta();
+}
+
+function mostrarPregunta() {
+  respondida = false;
+  const p = preguntas[preguntaActual];
+  const progress = document.getElementById('test-progress');
+  progress.innerHTML = '';
+  preguntas.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'test-dot' + (i < preguntaActual ? ' done' : i === preguntaActual ? ' current' : '');
+    progress.appendChild(d);
+  });
+
+  const container = document.getElementById('pregunta-container');
+  container.innerHTML = `
+    <div class="pregunta-card">
+      <div class="pregunta-num">${preguntaActual + 1} de ${preguntas.length} errores que haces sin darte cuenta</div>
+      <div class="pregunta-txt">${p.pregunta}</div>
+      <div class="opciones">
+        ${p.opciones.map((op, i) => `<button class="opcion" onclick="seleccionar(${i})" id="op-${i}">${op}</button>`).join('')}
+      </div>
+    </div>
+    <div id="explicacion-box" style="display:none;" class="card" style="border-color:var(--red);">
+      <p style="font-size:13px; color:var(--text2); line-height:1.6; font-weight:600;"></p>
+    </div>
+  `;
+
+  const btn = document.getElementById('btn-siguiente');
+  btn.disabled = true;
+  btn.textContent = preguntaActual === preguntas.length - 1 ? 'Ver resultado 👵' : 'Siguiente →';
+}
+
+function seleccionar(idx) {
+  if (respondida) return;
+  respondida = true;
+  const p = preguntas[preguntaActual];
+  respuestas.push(idx === p.correcta);
+
+  p.opciones.forEach((_, i) => {
+    const btn = document.getElementById('op-' + i);
+    if (i === p.correcta) btn.classList.add('correct');
+    else if (i === idx) btn.classList.add('wrong');
+    btn.disabled = true;
+  });
+
+  const expBox = document.getElementById('explicacion-box');
+  expBox.style.display = 'block';
+  expBox.innerHTML = `<p style="font-size:13px; color:var(--text2); line-height:1.6; font-weight:600;">👵 ${p.explicacion}</p>`;
+
+  document.getElementById('btn-siguiente').disabled = false;
+}
+
+function siguientePregunta() {
+  if (!respondida) return;
+  preguntaActual++;
+  if (preguntaActual >= preguntas.length) {
+    mostrarResultado();
+  } else {
+    mostrarPregunta();
+  }
+}
+
+function mostrarResultado() {
+  document.getElementById('test-screen').style.display = 'none';
+  document.getElementById('test-resultado').style.display = 'block';
+
+  const aciertos = respuestas.filter(Boolean).length;
+  const fallos = preguntas.length - aciertos;
+
+  document.getElementById('res-score').textContent = aciertos + '/' + preguntas.length;
+
+  let emoji, titulo, texto;
+  if (aciertos >= 9) {
+    emoji = '🏆'; titulo = '¡CASI PERFECTA!';
+    texto = 'La Tita está orgullosa. Casi no tienes pamplinas. Sigue así que no todo el mundo puede decir lo mismo.';
+  } else if (aciertos >= 7) {
+    emoji = '😏'; titulo = 'BASTANTE BIEN';
+    texto = 'Algo sabes, algo no. La Tita tiene unos pocos consejos más para ti. Lee los que fallaste y ponlos en práctica.';
+  } else if (aciertos >= 4) {
+    emoji = '😬'; titulo = 'MUCHAS PAMPLINAS';
+    texto = 'Estás haciendo más cosas mal de lo que creías ¿verdad? No te preocupes, la Tita está aquí para ayudarte.';
+  } else {
+    emoji = '😱'; titulo = 'TODO MAL, CRIATURA';
+    texto = 'Pamplinas de arriba abajo. Pero no te preocupes, para eso está la Tita. Lee los consejos y empieza a cambiar tus hábitos hoy mismo.';
+  }
+
+  document.getElementById('res-emoji').textContent = emoji;
+  document.getElementById('res-titulo').textContent = titulo;
+  document.getElementById('res-texto').textContent = texto;
+
+  const detalle = document.getElementById('res-detalle');
+  detalle.innerHTML = '<div style="font-family:\'Fredoka One\',cursive; color:var(--text2); font-size:13px; margin-bottom:10px;">LO QUE DEBES MEJORAR:</div>';
+  preguntas.forEach((p, i) => {
+    if (!respuestas[i]) {
+      detalle.innerHTML += `<div style="padding:8px 0; border-bottom:1px solid var(--border); font-size:13px; color:var(--text2); font-weight:600; line-height:1.5;">❌ ${p.pregunta}<br><span style="color:var(--text3);">${p.explicacion}</span></div>`;
+    }
+  });
+  if (aciertos === preguntas.length) {
+    detalle.innerHTML += '<div style="text-align:center; padding:10px; color:var(--green); font-weight:800;">✅ ¡Sin pamplinas! La Tita está orgullosa.</div>';
+  }
+}
+
+function compartirResultado() {
+  const aciertos = respuestas.filter(Boolean).length;
+  const fallos = 10 - aciertos;
+  const texto = `He descubierto que hago ${fallos} de 10 errores sin saberlo 😱\n\n¿Tú cuántos haces?\nDescúbrelo con la Tita Remedios 👵\n\ntitalaremedios.github.io`;
+  if (navigator.share) {
+    navigator.share({ title: 'Test de la Tita Remedios', text: texto });
+  } else {
+    navigator.clipboard.writeText(texto).then(() => {
+      alert('¡Texto copiado! Pégalo en Instagram 📲');
+    });
+  }
+}
+
+function reiniciarTest() {
+  document.getElementById('test-intro-screen').style.display = 'block';
+  document.getElementById('test-screen').style.display = 'none';
+  document.getElementById('test-resultado').style.display = 'none';
+}
+</script>
+</div>
+</body>
+</html>
