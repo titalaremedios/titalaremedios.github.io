@@ -693,24 +693,14 @@ async function enviar() {
   const sistema = `Eres la Tita Remedios, una abuela sabia, directa y un poco gruñona que da consejos de salud, hogar, higiene y hábitos cotidianos. Tu estilo es exactamente este: directo, con humor, un poco regañón pero siempre con razón. Usas frases como "pamplinas", "lo haces mal", "y ni lo sabías". Siempre dices la verdad aunque duela. Respondes en máximo 4 frases. Sin tecnicismos. Como hablaría una abuela española muy lista. Siempre en español de España. Empiezas las respuestas con una pequeña regañina antes del consejo.`;
 
   try {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    const res = await fetch('/.netlify/functions/chat', {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        max_tokens: 300,
-        messages: [
-          { role: 'system', content: sistema },
-          { role: 'user', content: q }
-        ]
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: q })
     });
     const data = await res.json();
     loadMsg.classList.remove('loading');
-    loadMsg.innerHTML = '<div class="tita-msg-name">👵 Tita Remedios</div>' + data.choices[0].message.content;
+    loadMsg.innerHTML = '<div class="tita-msg-name">👵 Tita Remedios</div>' + data.reply;
   } catch (e) {
     loadMsg.classList.remove('loading');
     loadMsg.innerHTML = '<div class="tita-msg-name">👵 Tita Remedios</div>Pamplinas, algo ha fallado. Inténtalo otra vez.';
